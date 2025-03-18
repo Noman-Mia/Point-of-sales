@@ -11,12 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('invoice_products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
+            $table->string('qty',50);
+            $table->string('sale_price',50);
+
+            $table->foreign('invoice_id')->references('id') ->on('invoices')
+            ->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->foreign('product_id')->references('id') ->on('products')
+            ->cascadeOnUpdate()->cascadeOnDelete();
+
             $table->foreign('user_id')->references('id') ->on('users')
             ->cascadeOnUpdate()->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
@@ -26,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('invoice_products');
     }
 };
