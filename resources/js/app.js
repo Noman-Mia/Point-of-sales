@@ -2,6 +2,7 @@ import "./bootstrap";
 import { router } from "@inertiajs/vue3";
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
+import NProgress from 'nprogress';
 createInertiaApp({
     resolve: (name) => {
         const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
@@ -13,3 +14,10 @@ createInertiaApp({
             .mount(el);
     },
 });
+
+router.on('start', () => {
+NProgress.start()
+})
+router.on('finish', () =>{
+NProgress.done()
+})
