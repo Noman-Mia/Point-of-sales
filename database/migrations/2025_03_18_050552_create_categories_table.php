@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->unsignedBigInteger('user-id');
+            $table->foreign('user-id')->references('id') ->on('users')
+            ->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
