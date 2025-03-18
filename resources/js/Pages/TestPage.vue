@@ -5,7 +5,7 @@ import { Link } from '@inertiajs/vue3';
 
 <template>
    <h1>Test Page</h1>
-   <link href="/">Home Page </link>
+   <Link href="/">Home</Link>
 </template>
 
 <style scoped>
