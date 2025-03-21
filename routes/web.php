@@ -17,8 +17,18 @@ Route::post('/user-registration',[UserController::class,'UserRegistration'])
 ->name('user.registration');
 Route::post('/user-login',[UserController::class,'UserLogin'])
 ->name('user.login');
+Route::post('/send-otp',[UserController::class,'SendOTPCode'])
+->name('SendOTPCode');
+Route::post('/verify-otp',[UserController::class,'VerifyOTP'])
+->name('VerifyOTP');
+
 
 Route::middleware(TokenVerificationMiddleware::class)->group(function(){
-    Route::post('/DashboardPage',[UserController::class,'DashboardPage']);
+    //reset password
+    Route::post('/reset-password',[UserController::class,'ResetPassword']);
+
+
+    Route::get('/DashboardPage',[UserController::class,'DashboardPage']);
+    Route ::get('/User-logout',[UserController::class,'UserLogout']);
 });
 

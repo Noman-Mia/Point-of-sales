@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
 use App\Helper\JWTToken;
+use App\Mail\OTPMail;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -54,5 +56,81 @@ class UserController extends Controller
                 'message'=>'Unauthorized'
             ],200);
          }
+    }
+
+    public function DashboardPage(Request $request){
+        $user = $request->header('email');
+        return response()->json([
+            'status'=>"success",
+            'message'=>'User login Successful',
+            'user'=>$user
+        ],200);
+    }
+
+    public function UserLogout(Request $request){     
+        return response()->json([
+            'status'=>"success",
+            'message'=>'User logout Successful',
+        ],200)->cookie('token', '', 1);
+    }
+
+    public function SendOTPCode(Request $request){
+     $email = $request->input('email');
+        $otp = rand(1000,9999);
+
+        $count = User::where('email',$email)->count();
+
+        if($count == 1){
+            // Mail::to($email)->send(new OTPMail($otp));
+            User::where('email',$email)->update(['otp'=>$otp]);
+            return response()->json([
+                'status'=>"success",
+                'message'=>"4 Digit{$otp} OTP send successfully",
+            ],200);
+        }else{
+            return response()->json([
+                'status'=>"fail",
+                'message'=>"unauthorized",
+            ],200);
+        }
+    } 
+
+    public function VerifyOTP(Request $request){
+        $email = $request->input('email');
+        $otp = $request->input('otp');
+        $count = User::where('email',$email)->where('otp',$otp)->count();
+        if($count == 1){
+            User::where('email',$email)->update(['otp'=>0]);
+        $token = JWTToken::CreateTokenSetPassword($request->input('email'));
+
+            return response()->json([
+                'status'=>"success",
+                'message'=>"OTP verification successfully",
+            ],200)->cookie('token', $token, 60*24*30);
+        }else{
+            return response()->json([
+                'status'=>"fail",
+                'message'=>"unauthorized",
+            ],200);
+        }
+    }
+
+    public function ResetPassword(Request $request){
+        try{
+            $email = $request->header('email');
+            $password = $request->input('password');
+            User::where('email',$email)->update(['password'=>$password]);
+            return response()->json([
+                'status'=>"success",
+                'message'=>"Password reset successfully",
+            ],200);
+
+        }catch(Exception $e){
+            return response()->json([
+                'status'=>"fail",
+                'message'=>"something went wrong",
+            ],200);
+
+        }
     }
 }

@@ -37,4 +37,16 @@ class JWTToken
     }
     
     
+    public static function CreateTokenSetPassword($userEmail)
+    {
+        $key = env("JWT_KEY", "your_secret_key"); 
+        $payload = [
+            "iss" => "Laravel-token",
+            "iat" => time(),
+            "exp" => time() + 60*60*24*30, // 30 days
+            "userEmail" => $userEmail,
+            "userId" => "0"
+        ];
+        return JWT::encode($payload, $key, 'HS256');
+    }
 }
