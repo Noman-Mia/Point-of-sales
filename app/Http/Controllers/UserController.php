@@ -17,12 +17,14 @@ class UserController extends Controller
                 'name'=>'required',
                 'email'=>'required|email|unique:users,email',
                 'password'=>'required',
+                'mobile'=>'required',
             ]);
 
             $user = User::create([
                 'name'=>$request->name,
                 'email'=>$request->email,
                 'password'=>$request->password,
+                'mobile'=>$request->mobile,
             ]);
             return response()->json(
                 ['status'=>"success",
