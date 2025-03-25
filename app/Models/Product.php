@@ -14,14 +14,19 @@ class Product extends Model
         'unit',
         'image'
    ];
-   public function category(){
-     return $this->belongsTo(Category::class);
-   }
-   public function user(){
-     return $this->belongsTo(Category::class);
-   }
-    public function invoiceProducts(){
-      return $this->hasMany(invoiceProduct::class);
+   public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function invoiceProducts()
+    {
+        return $this->hasMany(InvoiceProduct::class);
     }
     
 

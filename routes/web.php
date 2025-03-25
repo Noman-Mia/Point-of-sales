@@ -52,8 +52,10 @@ Route::middleware(TokenVerificationMiddleware::class)->group(function(){
     ->name('ProductList');
     Route::get('/product-by-id',[ProductController::class,'ProductById'])
     ->name('ProductById');
-    Route::get('/update-product',[ProductController::class,'ProductUpdate'])
+    Route::post('/update-product',[ProductController::class,'ProductUpdate'])
     ->name('ProductUpdate');
+    Route::delete('/delete-product/{id}', [ProductController::class, 'ProductDelete']);
+
 
 });
 
