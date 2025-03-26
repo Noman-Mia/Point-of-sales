@@ -106,7 +106,7 @@ public function ProductDelete($id)
         $product = Product::findOrFail($id);
 
         if ($product->image && file_exists(public_path('uploads/' . basename($product->image)))) {
-            unlink(public_path('uploads/' . basename($product->image)));
+            unlink(public_path(($product->image)));
         }
         $product->delete();
 
