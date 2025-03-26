@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenVerificationMiddleware;
@@ -66,8 +67,10 @@ Route::middleware(TokenVerificationMiddleware::class)->group(function(){
     ->name('CustomerById');
     Route::post('/update-customer',[CustomerController::class,'CustomerUpdate'])
     ->name('CustomerUpdate');
-    Route::get('/delete-customer/{id}', [CustomerController::class,'CustomerDelete']);
+    Route::get('/delete-customer/{id}', [CustomerController::class,'CustomerDelete'])->name('CustomerDelete');
 
+    //invoice all routes
+    Route::post('/invoice-create',[InvoiceController::class,'InvoiceCreate'])->name('InvoiceCreate');
 
 });
 
