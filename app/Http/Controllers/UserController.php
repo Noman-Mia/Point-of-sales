@@ -8,9 +8,33 @@ use Exception;
 use App\Helper\JWTToken;
 use App\Mail\OTPMail;
 use Illuminate\Support\Facades\Mail;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
+
+  public function LoginPage(){
+        return Inertia::render('LoginPage');
+    }
+
+    public function RegistrationPage(){
+        return Inertia::render('RegistrationPage');
+    }
+
+    public function ResetPasswordPage(){
+        return Inertia::render('ResetPasswordPage');
+    }
+
+    public function VerifyOTPPage(){
+        return Inertia::render('VerifyOTPPage');
+    }
+
+    public function SendOTPPage(){
+        return Inertia::render('SendOTPPage');
+    }
+
+    
+
     public function UserRegistration(Request $request){
        try{
             $request->validate([

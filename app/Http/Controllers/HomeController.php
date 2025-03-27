@@ -7,10 +7,8 @@ use Inertia\Inertia;
 
 class HomeController extends Controller
 {
- function index (){
+ public function index (){
     return Inertia::render('HomePage');
 }
- function test (){
-    return Inertia::render('TestPage');
-}
+
 }

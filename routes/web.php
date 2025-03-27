@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('/test',[HomeController::class,'test']);
+
 
 //User all routes
 Route::post('/user-registration',[UserController::class,'UserRegistration'])
@@ -71,6 +72,25 @@ Route::middleware(TokenVerificationMiddleware::class)->group(function(){
 
     //invoice all routes
     Route::post('/invoice-create',[InvoiceController::class,'InvoiceCreate'])->name('InvoiceCreate');
+    Route::get('/invoice-list',[InvoiceController::class,'InvoiceList'])->name('InvoiceList');
+    Route::post('/invoice-details',[InvoiceController::class,'InvoiceDetails'])->name('InvoiceDetails');
+    Route::get('/invoice-delete/{id}', [InvoiceController::class,'InvoiceDelete'])->name('InvoiceDelete');
+
+    //dashboard summary
+    Route::get('/dashboard-summary',[DashboardController::class,'DashboardSummary'])->name('DashboardSummary');
+
+    //reset password page
+    Route::get('/reset-password',[UserController::class,'ResetPasswordPage']);
 
 });
+
+//pages all routes
+Route::get('/login',[UserController::class,'LoginPage'])
+->name('login.page');
+Route::get('/registration',[UserController::class,'RegistrationPage'])
+->name('registration.page');
+Route::get('/send-otp',[UserController::class,'SendOTPPage'])
+->name('sendotp.page');
+Route::get('/verify-otp',[UserController::class,'VerifyOTPPage'])
+->name('VerifyOTPPage');
 
