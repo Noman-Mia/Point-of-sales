@@ -17,16 +17,17 @@ return new class extends Migration
             $table->string('discount',50);
             $table->string('vat',50);
             $table->string('payable',50);
+
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('customer_id');
 
-            $table->foreign('user_id')->references('id') ->on('users')
-            ->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')
+            ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreign('customer_id')->references('id')->on('customers')
+            ->cascadeOnUpdate()->restrictOnDelete();
 
-            $table->foreign('customer_id')->references('id') ->on('customers')
-            ->cascadeOnUpdate()->cascadeOnDelete();
-
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

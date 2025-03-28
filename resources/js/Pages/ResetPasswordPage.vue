@@ -1,14 +1,14 @@
 <script setup>
-import NavLayout from '@/Layout/NavLayout.vue'
-import ResetPasswordForm from '@/Components/User/ResetPasswordForm.vue'
+import NavLayout from '../Layout/NavLayout.vue';
+import ResetPasswordForm from '../Components/User/ResetPasswordForm.vue';
 </script>
 
-<template >
+<template>
     <NavLayout>
-        <ResetPasswordForm />
+        <ResetPasswordForm/>
     </NavLayout>
 </template>
 
 <style scoped>
-    
+
 </style>

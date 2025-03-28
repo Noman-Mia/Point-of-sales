@@ -16,17 +16,17 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');
 
-            $table->foreign('user_id')->references('id') ->on('users')
-            ->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')
+            ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreign('category_id')->references('id')->on('categories')
+            ->cascadeOnUpdate()->restrictOnDelete();
 
-            $table->foreign('category_id')->references('id') ->on('categories')
-            ->cascadeOnUpdate()->cascadeOnDelete();
-            
-            $table->string('name',200);
-            $table->string('price',100);
+            $table->string('name',100);
+            $table->string('price',50);
             $table->string('unit');
             $table->string('image')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

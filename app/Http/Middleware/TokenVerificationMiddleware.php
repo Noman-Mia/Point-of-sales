@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Helper\JWTToken;
 use Closure;
+use App\Helper\JWTToken;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,14 +18,15 @@ class TokenVerificationMiddleware
     {
         $token = $request->cookie('token');
         $result = JWTToken::VerifyToken($token);
-        if($result == "unauthorized"){
-            return response()->json(
-                ['status'=>"fail",
-                'message'=>'Unauthorized'
+
+        if($result == 'unauthorized'){
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'unauthorized'
             ]);
         }else{
-            $request->headers->set('email',$result->userEmail);
-            $request->headers->set('id',$result->userId);
+            $request->headers->set('email', $result->userEmail);
+            $request->headers->set('id', $result->userId);
             return $next($request);
         }
     }

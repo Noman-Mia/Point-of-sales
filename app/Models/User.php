@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Category;
-use App\Models\Customer;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Invoice;
 use App\Models\Product;
-
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Category;
+use App\Models\Customer;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -52,26 +51,23 @@ class User extends Authenticatable
             // 'password' => 'hashed',
         ];
     }
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }//end method
 
     public function products()
     {
         return $this->hasMany(Product::class);
-    }
-
-    public function categories()
-    {
-        return $this->hasMany(Category::class);
-    }
-
-    public function invoices()
-    {
-        return $this->hasMany(Invoice::class);
-    }
+    }//end method
 
     public function customers()
     {
         return $this->hasMany(Customer::class);
-    }
-   
-    
+    }//end method
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }//end method
 }

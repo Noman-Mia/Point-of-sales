@@ -28,7 +28,7 @@ class OTPMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Send OTP mail from Laravel',
+            subject: 'Send OTP Mail in Laravel batch 5',
         );
     }
 

@@ -2,31 +2,25 @@
 
 namespace App\Models;
 
+use App\Models\Customer;
+use App\Models\InvoiceProduct;
 use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
-    protected $fillable =[
+    protected $fillable = [
         'user_id',
         'customer_id',
         'total',
-        'discount',
         'vat',
-        'payable'
-   ];
-   public function user()
-   {
-       return $this->belongsTo(User::class);
-   }
+        'payable',
+        'discount'
+    ];
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }//end method
 
-   public function customer()
-   {
-       return $this->belongsTo(Customer::class);
-   }
-
-   public function invoiceProducts()
-   {
-       return $this->hasMany(InvoiceProduct::class);
-   }
-    
+    public function invoiceProduct(){
+        return $this->hasMany(InvoiceProduct::class);
+    }
 }

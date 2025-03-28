@@ -19,16 +19,17 @@ return new class extends Migration
             $table->string('qty',50);
             $table->string('sale_price',50);
 
-            $table->foreign('invoice_id')->references('id') ->on('invoices')
-            ->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('invoice_id')->references('id')->on('invoices')
+            ->cascadeOnUpdate()->restrictOnDelete();
 
-            $table->foreign('product_id')->references('id') ->on('products')
-            ->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('product_id')->references('id')->on('products')
+            ->cascadeOnUpdate()->restrictOnDelete();
 
-            $table->foreign('user_id')->references('id') ->on('users')
-            ->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')
+            ->cascadeOnUpdate()->restrictOnDelete();
 
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
