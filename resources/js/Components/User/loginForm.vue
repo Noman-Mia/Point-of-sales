@@ -13,7 +13,7 @@
                             <br/>
                             <button type="submit" class="btn w-100 btn-success">Login</button>
                             <hr/>
-                            <div class="float-end mt-3">
+                            <div class="float-end mt-4">
                             <span>
                                 <Link class="text-center ms-3 h6" href="/registration">Sign Up </Link>
                                 <span class="ms-1">|</span>
